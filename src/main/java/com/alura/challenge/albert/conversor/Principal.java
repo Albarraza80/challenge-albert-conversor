@@ -1,3 +1,8 @@
+package com.alura.challenge.albert.conversor;
+
+import com.alura.challenge.albert.conversor.divisa.AsignarDivisa;
+import com.alura.challenge.albert.conversor.http.UrlApi;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -44,7 +49,7 @@ public class Principal {
         divisaDos = divisa.sigla(monedaEscogidaDos);
 
         var url = new UrlApi();
-        direccion = url.Url(apiKey, divisaUno, divisaDos, monto);
+        direccion = url.url(apiKey, divisaUno, divisaDos, monto);
 
         System.out.println(direccion);
 

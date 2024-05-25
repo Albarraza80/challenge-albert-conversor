@@ -1,3 +1,5 @@
+package com.alura.challenge.albert.conversor.divisa;
+
 public class AsignarDivisa {
 
     private String divisa;
