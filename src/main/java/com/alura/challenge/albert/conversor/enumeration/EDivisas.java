@@ -2,7 +2,7 @@ package com.alura.challenge.albert.conversor.enumeration;
 
 /**
  *
- * @author RobertAntonio
+ * @author AlbertAntonio
  */
 public enum EDivisas {
     DOLAR( 1, "USD", "Dolares estadounidenses" ),

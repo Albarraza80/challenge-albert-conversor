@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
+.idea/
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
@@ -22,6 +23,7 @@ target/
 .sts4-cache
 
 ### NetBeans ###
+/nbproject/
 /nbproject/private/
 /nbbuild/
 /dist/
