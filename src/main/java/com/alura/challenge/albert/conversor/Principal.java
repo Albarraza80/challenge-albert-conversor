@@ -2,6 +2,10 @@ package com.alura.challenge.albert.conversor;
 
 import com.alura.challenge.albert.conversor.enumeration.EDivisas;
 import com.alura.challenge.albert.conversor.http.UrlApi;
+import com.alura.challenge.albert.conversor.modelo.Conversion;
+import com.google.gson.Gson;
+
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -11,6 +15,7 @@ public class Principal {
     public static void main( String[] args )
         throws IOException, InterruptedException {
         var apiKey = "14b36e2bd68cca67972876fe";
+        Conversion conversion;
 
         var monedaUno = menuMonedas( "Digita el numero de la moneda origen.");
 
@@ -23,7 +28,12 @@ public class Principal {
 
         var respuesta = url.invocarServicioConversion( apiKey, monedaUno, monedaDos, monto );
 
-        System.out.println( respuesta );
+        conversion = new Gson().fromJson( respuesta, Conversion.class);
+
+        System.out.println(monto + " " + monedaUno.getNombre() + " equivalen a: " + conversion.getResultadoConversion()
+                            + " " + monedaDos.getNombre());
+        System.out.println("Para el día " + conversion.getFechaDeConsulta() + " con una tasa de conversion de: "
+                           + conversion.getTasaDeConversion());
     }
 
     private static EDivisas menuMonedas( String titulo ) {
@@ -45,4 +55,5 @@ public class Principal {
 
         return EDivisas.getDivisa( opcionEscogida );
     }
+
 }
