@@ -1,6 +1,9 @@
 package com.alura.challenge.albert.conversor.http;
 
 import com.alura.challenge.albert.conversor.enumeration.EDivisas;
+import com.alura.challenge.albert.conversor.modelo.Conversion;
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -17,9 +20,11 @@ public class UrlApi {
         return url;
     }
     
-    public String invocarServicioConversion( String apiKey, EDivisas monedaUno, EDivisas monedaDos,
-                                             double monto )
+    public Conversion invocarServicioConversion(String apiKey, EDivisas monedaUno, EDivisas monedaDos,
+                                                double monto )
         throws IOException, InterruptedException {
+        Conversion conversion;
+
         HttpClient client;
         
         HttpRequest solicitud;
@@ -37,8 +42,10 @@ public class UrlApi {
                 .build();
 
         respuesta = client.send( solicitud, HttpResponse.BodyHandlers.ofString() );
-        
-        return respuesta.body();
+
+        conversion = new Gson().fromJson( respuesta.body(), Conversion.class);
+
+        return conversion;
     }
 
 }

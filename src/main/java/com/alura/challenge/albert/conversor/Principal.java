@@ -3,37 +3,48 @@ package com.alura.challenge.albert.conversor;
 import com.alura.challenge.albert.conversor.enumeration.EDivisas;
 import com.alura.challenge.albert.conversor.http.UrlApi;
 import com.alura.challenge.albert.conversor.modelo.Conversion;
-import com.google.gson.Gson;
-
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Principal {
-    private static final Scanner reader = new Scanner( System.in );
-    
-    public static void main( String[] args )
+    private static final Scanner reader = new Scanner( System.in );;
+
+   public static void main( String[] args )
         throws IOException, InterruptedException {
-        var apiKey = "14b36e2bd68cca67972876fe";
-        Conversion conversion;
 
-        var monedaUno = menuMonedas( "Digita el numero de la moneda origen.");
+       int salida;
 
-        var monedaDos = menuMonedas( "Digita el numero de la moneda destino.", monedaUno );
+      do{
+            var apiKey = "14b36e2bd68cca67972876fe";
+            Conversion conversion;
 
-        System.out.println( "Escriba el monto que desea cambiar: " );
-        var monto = reader.nextDouble();
+            System.out.println("\n********************************");
+            System.out.println("SISTEMA DE CONVERSION DE MONEDAS");
+            System.out.println("********************************\n");
 
-        var url = new UrlApi();
+            var divisaUno = menuMonedas("Digita el numero de la moneda origen.");
 
-        var respuesta = url.invocarServicioConversion( apiKey, monedaUno, monedaDos, monto );
+            var divisaDos = menuMonedas("Digita el numero de la moneda destino.", divisaUno);
 
-        conversion = new Gson().fromJson( respuesta, Conversion.class);
+            System.out.print("Escriba el monto que desea cambiar: ");
+            var monto = reader.nextDouble();
 
-        System.out.println(monto + " " + monedaUno.getNombre() + " equivalen a: " + conversion.getResultadoConversion()
-                            + " " + monedaDos.getNombre());
-        System.out.println("Para el día " + conversion.getFechaDeConsulta() + " con una tasa de conversion de: "
-                           + conversion.getTasaDeConversion());
+            var url = new UrlApi();
+
+            conversion = url.invocarServicioConversion(apiKey, divisaUno, divisaDos, monto);
+
+            System.out.println(monto + " " + divisaUno.getNombre() + " equivalen a: " + conversion.getResultadoConversion()
+                    + " " + divisaDos.getNombre());
+            System.out.println("Para el día " + conversion.getFechaDeConsulta() + " con una tasa de conversion de: "
+                    + conversion.getTasaDeConversion());
+
+            System.out.println("¿Desea seguir? Digite 1 u otra tecla para salir");
+            System.out.print("> ");
+            salida = reader.nextInt();
+
+        }while( salida == 1);
+
     }
 
     private static EDivisas menuMonedas( String titulo ) {
@@ -50,6 +61,8 @@ public class Principal {
                 System.out.println(divisas.getIdentificador() + ". " + divisas.getNombre());
             }
         }
+
+        System.out.print("> ");
 
         opcionEscogida = reader.nextInt();
 

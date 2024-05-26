@@ -6,8 +6,10 @@ public class Conversion {
 
     @SerializedName("conversion_result")
     private double resultadoConversion;
-    @SerializedName("time_next_update_utc")
+
+    @SerializedName("time_last_update_utc")
     private String fechaDeConsulta;
+
     @SerializedName("conversion_rate")
     private double tasaDeConversion;
 
