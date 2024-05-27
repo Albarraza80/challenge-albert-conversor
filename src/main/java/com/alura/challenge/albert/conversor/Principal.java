@@ -8,26 +8,25 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Principal {
-    private static final Scanner reader = new Scanner( System.in );;
+    private static final Scanner reader = new Scanner(System.in);
 
-   public static void main( String[] args )
-        throws IOException, InterruptedException {
+    public static void main(String[] args)
+            throws IOException, InterruptedException {
 
-       int salida;
+        String salida;
+        var apiKey = "14b36e2bd68cca67972876fe";
+        Conversion conversion;
 
-      do{
-            var apiKey = "14b36e2bd68cca67972876fe";
-            Conversion conversion;
-
+        do {
             System.out.println("\n********************************");
             System.out.println("SISTEMA DE CONVERSION DE MONEDAS");
             System.out.println("********************************\n");
 
             var divisaUno = menuMonedas("Digita el numero de la moneda origen.");
 
-            var divisaDos = menuMonedas("Digita el numero de la moneda destino.", divisaUno);
+            var divisaDos = menuMonedas("\nDigita el numero de la moneda destino.", divisaUno);
 
-            System.out.print("Escriba el monto que desea cambiar: ");
+            System.out.print("\nEscriba el monto que desea cambiar: ");
             var monto = reader.nextDouble();
 
             var url = new UrlApi();
@@ -39,25 +38,25 @@ public class Principal {
             System.out.println("Para el día " + conversion.getFechaDeConsulta() + " con una tasa de conversion de: "
                     + conversion.getTasaDeConversion());
 
-            System.out.println("¿Desea seguir? Digite 1 u otra tecla para salir");
+            System.out.println("¿Desea seguir s/n?");
             System.out.print("> ");
-            salida = reader.nextInt();
+            salida = reader.next();
 
-        }while( salida == 1);
+        } while (salida.equalsIgnoreCase("s"));
 
     }
 
-    private static EDivisas menuMonedas( String titulo ) {
+    private static EDivisas menuMonedas(String titulo) {
         return menuMonedas(titulo, null);
     }
 
-    private static EDivisas menuMonedas( String titulo, EDivisas monedaEscogida) {
+    private static EDivisas menuMonedas(String titulo, EDivisas monedaEscogida) {
         int opcionEscogida;
 
-        System.out.println( titulo );
+        System.out.println(titulo);
 
-        for( EDivisas divisas : EDivisas.values() ) {
-            if( divisas != monedaEscogida ) {
+        for (EDivisas divisas : EDivisas.values()) {
+            if (divisas != monedaEscogida) {
                 System.out.println(divisas.getIdentificador() + ". " + divisas.getNombre());
             }
         }
@@ -66,7 +65,7 @@ public class Principal {
 
         opcionEscogida = reader.nextInt();
 
-        return EDivisas.getDivisa( opcionEscogida );
+        return EDivisas.getDivisa(opcionEscogida);
     }
 
 }
